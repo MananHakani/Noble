@@ -21,27 +21,15 @@ class NobleParser(Parser):
     def statement(self, p):
         return p.var_assign
         
-    @_('NAME ASSIGN1 expr')
+    @_('NAME ASSIGN expr')
     def var_assign(self, p):
         return ('var_assign', p.NAME, p.expr)
         
-    @_('NAME ASSIGN1 DQOUTE')
+    @_('NAME ASSIGN DQOUTE')
     def var_assign(self, p):
         return ('var_assign', p.NAME, p.DQOUTE)
         
-    @_('NAME ASSIGN1 SQOUTE')
-    def var_assign(self, p):
-        return ('var_assign', p.NAME, p.SQOUTE)
-        
-    @_('NAME ASSIGN2 expr')
-    def var_assign(self, p):
-        return ('var_assign', p.NAME, p.expr)
-        
-    @_('NAME ASSIGN2 DQOUTE')
-    def var_assign(self, p):
-        return ('var_assign', p.NAME, p.DQOUTE)
-        
-    @_('NAME ASSIGN2 SQOUTE')
+    @_('NAME ASSIGN SQOUTE')
     def var_assign(self, p):
         return ('var_assign', p.NAME, p.SQOUTE)
         
@@ -64,6 +52,10 @@ class NobleParser(Parser):
     @_('expr MUL MUL expr')
     def expr(self, p):
         return ('exp', p.expr0, p.expr1)
+        
+    @_('expr MUL MUL MUL expr')
+    def expr(self, p):
+        return ('root', p.expr0, p.expr1)
      
     @_('expr DIV expr')
     def expr(self, p):
@@ -77,13 +69,49 @@ class NobleParser(Parser):
     def expr(self, p):
         return p.expr
         
-    @_('NAME')
+    @_('NAME ADD ASSIGN expr')
     def expr(self, p):
+        return ('add_assign', p.NAME, p.expr)
+        
+    @_('NAME ADD ASSIGN NAME')
+    def expr(self, p):
+        return ('add_assign_var', p.NAME0, p.NAME1)
+        
+    @_('NAME SUB ASSIGN expr')
+    def expr(self, p):
+        return ('sub_assign', p.NAME, p.expr)
+        
+    @_('NAME SUB ASSIGN NAME')
+    def expr(self, p):
+        return ('sub_assign_var', p.NAME0, p.NAME1)
+        
+    @_('NAME DIV ASSIGN expr')
+    def expr(self, p):
+        return ('div_assign', p.NAME, p.expr)
+        
+    @_('NAME DIV ASSIGN NAME')
+    def expr(self, p):
+        return ('div_assign_var', p.NAME0, p.NAME1)
+        
+    @_('NAME MUL ASSIGN expr')
+    def expr(self, p):
+        return ('mul_assign', p.NAME, p.expr)
+        
+    @_('NAME MUL ASSIGN NAME')
+    def expr(self, p):
+        return ('mul_assign_var', p.NAME0, p.NAME1)
+        
+    @_('NAME')
+    def statement(self, p):
         return ('var', p.NAME)
         
     @_('NUMBER')
     def expr(self, p):
         return ('num', p.NUMBER)
+        
+    @_('FLOAT')
+    def expr(self, p):
+        return ('float', p.FLOAT)
         
     @_('DQOUTE')
     def expr(self, p):
@@ -96,3 +124,7 @@ class NobleParser(Parser):
     @_('LPAREN expr RPAREN')
     def expr(self, p):
         return p.expr
+           
+    @_('DOLLAR NAME')
+    def statement(self, p):
+        return ('command', p.NAME)
