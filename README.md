@@ -2,7 +2,7 @@
 
 **Noble is a python-based programming language built using the Sly library.**
 
-## Noble Arithmetic Operators
+## Arithmetic Operators
 
 Arithmetic operators are used with numeric values to perform common mathematical :
 
