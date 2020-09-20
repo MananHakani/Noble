@@ -15,4 +15,5 @@ Arithmetic operators are used with numeric values to perform common mathematical
 |    **    | Exponentiation |   x**y  |
 |    ***   | Root           |  x***y  |
 |    %     | Modulus        |   x%y   |
+|    //    | Floor Division |   x//y  |
 
