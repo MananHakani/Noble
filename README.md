@@ -1,3 +1,3 @@
 # Noble
 
-**Noble is a programming language created using sly library in python.** 
+**Noble is a python-based programming language built using the Sly library.**
