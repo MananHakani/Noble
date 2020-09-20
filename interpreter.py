@@ -65,6 +65,12 @@ class NobleInterpreter:
               return self.walkTree(node[1]) / self.walkTree(node[2])
            except:
               pass
+              
+        elif node[0] == 'int_div':
+           try:
+              return self.walkTree(node[1]) // self.walkTree(node[2])
+           except:
+              pass
            
         elif node[0] == 'mod':
            try:
